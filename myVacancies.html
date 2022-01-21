@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Job Finder</title>
+
+  <!-- Bootstrap -->
+  <!-- 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="main.css">
+  <!--     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"> -->
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="main.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script> -->
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script> -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="myjQuery.js"></script>
+
+  <script>
+    var system = new System(JSON.parse(localStorage.getItem('SystemObjectData')));
+    var user = JSON.parse(localStorage.getItem('User'));
+    user = new User(JSON.parse(localStorage.getItem('User')));
+    system.setUser(user);
+    localStorage.setItem('SystemObjectData',JSON.stringify(system));
+
+    var userInfo = user.getInfo();
+    var allPosts = system.getAllPosts();
+  </script>
+
+</head>
+<nav class="navbar navbar-expand-lg navbar-dark bg-blue">
+  <a class="navbar-brand" id="userProfileIcon">
+    <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40"
+      height="40" class="rounded-circle">
+  </a>
+  <!-- start of notification dropdown -->
+  <div class="dropdown-menu-right">
+    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false">
+      <span class="badge badge-danger ml-2">3</span>
+      <i class="fa fa-bell fa-lg" style="color:antiquewhite;"></i>
+    </a>
+
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+      <div class="dropdown-item" href="#">
+        <div>
+          <a href="#" class="btn btn-link" >
+            <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40"
+              height="40" class="rounded-circle">
+          </a>
+          <a href="#" class="btn btn-link color-black" id="">John Doe</a>
+        </div>
+        <div class="mt-2 offset-2">
+          is requesting the <span>Yard work</span>
+        </div>
+        <div class="d-flex justify-content-end">
+          <a href="#" class="btn btn-light bg-darkish-blue mr-2">Accept</a>
+          <a href="#" class="btn btn-danger">Reject</a>
+        </div>
+      </div>
+      <hr>
+      <span class="dropdown-item" href="#">
+        Please review <span>Mike Doe</span> <a href="#" class="btn btn-link pb-2 ">Review</a>
+      </span>
+      <hr>
+      <div class="dropdown-item">
+        <span>
+          Please Confirm payment from <span><a href="#">John Doe</a></span>
+        </span>
+        <div class="d-flex justify-content-end">
+          <a href="#" class="btn btn-light bg-darkish-blue mr-2">Yes</a>
+          <a href="#" class="btn btn-light bg-darkish-blue">No</a>
+        </div>
+
+      </div>
+      <hr>
+      <span class="dropdown-item text-center"><a href="#" class="btn btn-link">View all</a></span>
+    </div>
+  </div>
+  <!-- dripdown end -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!-- Content that belongs in the alert -->
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item dropdown">
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link " href="home.html"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="myVacancies.html"><i class="fa fa-th-list"></i> My Vacanies</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#post"><i class="fa fa-plus"></i> Post Vacancy</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="myWorkHistory.html"><i class="fa fa-th-list"></i> My Work History</a>
+      </li>
+      <hr class="bg-light">
+      <li class="nav-item">
+        <a class="nav-link" id="profilePage"><i class="fa fa-user"></i> Profile</a>
+      </li>
+     
+      <li class="nav-item">
+        <a class="nav-link" href="index.html"><i class="fa fa-sign-out"></i> Sign out</a>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+
+
+<body class="bg-light-blue">
+  <!-- Modal start -->
+  <!-- Success Modal -->
+  <div class="modal" id="success" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-darkish-blue">
+          <h5 class="modal-title" style="text-align: center;">SUCCESS</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id="success-content" style="text-align: center;">Post was sent!</p>
+          <div class="form-group">
+            <button type="button" class="btn btn-light bg-darkish-blue float-right" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for posting a vacancy -->
+  <div class="modal fade" id="post" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-darkish-blue">
+          <h5 class="modal-title " id="exampleModalLongTitle">Post a Vacancy</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+
+            <div class="form-group">
+              <label for="title">Title <span class="require">*</span></label>
+              <input type="text" class="form-control" name="title" id="title">
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea rows="5" class="form-control" name="description" id="description"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="estimatedTime">Estimated Time: <span class="require">*</span></label>
+              <input type="text" class="form-control" name="title" id="estimatedTime">
+            </div>
+
+            <div class="form-group">
+              <label for="availableDate">Availale Date: <span class="require">*</span></label>
+              <input type="text" class="form-control" name="title" id="availableDate">
+            </div>
+
+            <div class="form-group">
+              <label for="availableTime">Availale Time: <span class="require">*</span></label>
+              <input type="text" class="form-control" name="title" id="availableTime">
+            </div>
+
+            <div class="form-group">
+              <label for="payment">Payment: <span class="require">*</span></label>
+              <input type="text" class="form-control" name="title" id="payment">
+            </div>
+
+            <div class="form-group">
+              <label for="location">Location: <span class="require">*</span></label>
+              <input type="text" class="form-control" name="title" id="location">
+            </div>
+            <div class="form-group row">
+              <div class="col-6">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              </div>
+              <div class="col-6 d-flex justify-content-end">
+                <button type="button" class="btn btn-light bg-darkish-blue" data-dismiss="modal" data-toggle="modal"
+                  data-target="#success" id="postData">Post</button>
+              </div>
+            </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Modal for deleting [DELETING MODAL1-->
+  <div class="modal" id="delete" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">DELETE</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to DELETE it?</p>
+          <div class="form-group">
+            <button type="button" class="btn btn-secondary floar-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger float-right" data-dismiss="modal" id="del"> DELETE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modal for view active vacancy  -->
+  <div class="modal fade" id="view-active" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-darkish-blue">
+          <h5 class="modal-title" id="exampleModalLongTitle">My Active Vacancy</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row d-flex justify-content-center">
+            <div class="col-8">
+              <div class="row">
+                <div class="col-7 col-md-8">
+                  <label for="Job Title" class="font-weight-bold ">Job: </label>
+                </div>
+                <div class="col-5 col-md-4">
+                  <p id="job-title">Yard Work</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label for="Job Description" class="font-weight-bold ">Job Description: </label>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-10">
+                    <p id="job-description">I want you too cut my yard and rake the whole yard that is amlost 1 acre</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-7 col-md-8">
+                  <label for="time-taken" class="font-weight-bold">Estimated Time: </label>
+                </div>
+                <div class="col-5 col-md-4">
+                  <p id="time-taken">3 Hrs</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-7  col-md-8">
+                  <label for="time" class="font-weight-bold">Available Time: </label>
+                </div>
+                <div class="col-5 col-md-4">
+                  <p id="time">8:00 AM</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-7 col-md-8">
+                  <label for="date" class="font-weight-bold">Available Date: </label>
+
+                </div>
+                <div class="col-5 col-md-4">
+                  <p id="date">24/10/2019</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-7 col-md-8">
+                  <label for="location" class="font-weight-bold">Location: </label>
+                </div>
+                <div class="col-5 col-md-4">
+                  <p id="location">14 Tucan Str.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-light bg-darkish-blue float-left" data-dismiss="modal">Ok</button>
+            <button type="button" class="btn btn-light float-right"><i class="fa fa-edit"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal for view vacancy history -->
+  <div class="modal fade" id="view-hist" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-darkish-blue">
+          <h5 class="modal-title" id="exampleModalLongTitle">My Vacancy History</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row d-flex justify-content-center">
+            <div class="col-8">
+              <div class="row">
+                <div class="col-7 col-md-8">
+                  <label for="Job Title" class="font-weight-bold ">Job: </label>
+                </div>
+                <div class="col-5 col-md-4">
+                  <p id="job-title">Yard Work</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label for="Job Description" class="font-weight-bold ">Job Description: </label>
+                </div>
+                <div class="row justify-content-center">
+                  <div class="col-10">
+                    <p id="job-description">I want you too cut my yard and rake the whole yard that is amlost 1 acre</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-7 col-md-8">
+                  <label for="time-taken" class="font-weight-bold">Estimated Time: </label>
+                </div>
+                <div class="col-5 col-md-4">
+                  <p id="time-taken">3 Hrs</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-7 col-md-8">
+                  <label for="time" class="font-weight-bold">Available Time: </label>
+                </div>
+                <div class="col-5 col-md-4">
+                  <p id="time">8:00 AM</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-7 col-md-8">
+                  <label for="date" class="font-weight-bold">Available Date: </label>
+
+                </div>
+                <div class="col-5 col-md-4">
+                  <p id="date">24/10/2019</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-7 col-md-8">
+                  <label for="location" class="font-weight-bold">Location: </label>
+                </div>
+                <div class="col-5 col-md-4">
+                  <p id="location">14 Tucan Str.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-12">
+              <button type="button" class="btn btn-light bg-darkish-blue float-right" data-dismiss="modal">Ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Modal end -->
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3>Posts</h3>
+        <hr>
+        <div class="row mb-2">
+          <div class="col-12 col-md-12" id="container">
+
+
+
+<script>
+
+  var myVacancies = user.myVacancies;
+  console.log(user);
+
+  for (let index = 0; index < myVacancies.length; index++) {
+
+    document.write( '<div class=\"row mb-2\">\n' );
+    document.write( '<div class=\"col-12 col-md-12\">\n' );
+    document.write( '<div class=\"card\" id='+myVacancies[index][0].toString() + "*" + myVacancies[index][1].toString()+'>\n' );
+    document.write( '              <div class=\"card-body\">\n' );
+    document.write( '                <div class=\"row\">\n' );
+    document.write( '                  <div class=\"col-12\">\n' );
+    document.write( '                    <img src=\"https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg\"\n' );
+    document.write( '                      width=\"40\" height=\"40\" class=\"rounded-circle\">\n' );
+    document.write( '                    <a href=\"#\" class=\"btn btn-link color-black\" id=\"\"><u>'+system.getUserNameById(myVacancies[index][1])+'</u></a>\n' );
+    document.write( '                  </div>\n' );
+    document.write( '                </div>\n' );
+    document.write( '                <div class=\"row d-flex justify-content-center\">\n' );
+    document.write( '                  <div class=\"col-8\">\n' );
+    document.write( '                    <div class=\"row\">\n' );
+    document.write( '                      <div class=\"col-4\">\n' );
+    document.write( '                        <label for=\"Job Title\" class=\"font-weight-bold \">Job: </label>\n' );
+    document.write( '                      </div>\n' );
+    document.write( '                      <div class=\"col-8\">\n' );
+    document.write( '                        <p class=\"\">'+myVacancies[index][2]+'</p>\n' );
+    document.write( '                      </div>\n' );
+    document.write( '                    </div>\n' );
+    document.write( '                    <div class=\"row\">\n' );
+    document.write( '                      <div class=\"col-4\">\n' );
+    document.write( '                        <label for=\"time\" class=\"font-weight-bold\">Time: </label>\n' );
+    document.write( '                      </div>\n' );
+    document.write( '                      <div class=\"col-8\">\n' );
+    document.write( '                        <p class=\"\">'+myVacancies[index][7]+'</p>\n' );
+    document.write( '                      </div>\n' );
+    document.write( '                    </div>\n' );
+    document.write( '                    <div class=\"row\">\n' );
+    document.write( '                      <div class=\"col-4\">\n' );
+    document.write( '                        <label for=\"date\" class=\"font-weight-bold\">Date: </label>\n' );
+    document.write( '\n' );
+    document.write( '                      </div>\n' );
+    document.write( '                      <div class=\"col-8\">\n' );
+    document.write( '                        <p class=\"d-inline\">'+myVacancies[index][8]+'</p>\n' );
+    document.write( '                      </div>\n' );
+    document.write( '                    </div>\n' );
+    document.write( '                  </div>\n' );
+    document.write( '                </div>\n' );
+    document.write( '                <span class=\"float-right\">\n' );
+    document.write( '                  <a href=\"#\" class=\"btn btn-light bg-darkish-blue mr-2\" data-toggle=\"modal\" data-target=\"#view-active\">\n' );
+    document.write( '                    View\n' );
+    document.write( '                  </a>\n' );
+    document.write( '                  <a href=\"#\" class=\"btn btn-danger delete\" data-toggle=\"modal\" data-target=\"#delete\">\n' );
+    document.write( '                    <i class=\"fa fa-trash\"></i>\n' );
+    document.write( '                  </a>\n' );
+    document.write( '                </span>\n' );
+    document.write( '              </div>\n' );
+    document.write( '            </div>' );  
+    document.write( '</div></div>' );
+
+  }
+//function for displaying modal
+$('.delete').click(function(e){
+  let parent = e.target.closest('.card');
+  parentId = parent.id;
+  $("#delete").data('modalid',parentId.toString());
+});
+$('#del').click(function(){
+  let deleteModal = $("#delete");
+  console.log(deleteModal);
+  let postToDelete = deleteModal.data("modalid");
+  console.log(postToDelete);
+
+  let postId = parseInt(postToDelete[0]);
+  system.removePostAt(postId);
+  postToDelete = document.getElementById(postToDelete);
+  postToDelete.remove();
+  localStorage.setItem('SystemObjectData',JSON.stringify(system));
+});
+
+
+</script>
+
+
+
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h3>Post History</h3>
+        <hr>
+        <div class="row mb-2">
+          <div class="col-12 col-md-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
+                      width="40" height="40" class="rounded-circle">
+                    <a href="#" class="btn btn-link color-black" id=""><u>User Name</u></a>
+                  </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                  <div class="col-8">
+                    <div class="row">
+                      <div class="col-4">
+                        <label for="Job Title" class="font-weight-bold ">Job: </label>
+                      </div>
+                      <div class="col-8">
+                        <p class="">Yard Work</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-4">
+                        <label for="time" class="font-weight-bold">Time: </label>
+                      </div>
+                      <div class="col-8">
+                        <p class="">8:00 AM</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-4">
+                        <label for="date" class="font-weight-bold">Date: </label>
+
+                      </div>
+                      <div class="col-8">
+                        <p class="d-inline">24/10/2019</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <span class="float-right">
+                  <a href="#" class="btn btn-light bg-darkish-blue mr-2" data-toggle="modal" data-target="#view-hist">
+                    View
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--search bar-->
+  </div>
+  <script>
+    $('#postData').click(function(){
+
+      let title = $('#title').val();
+      let description = $('#description').val();
+      let estimatedTime = $('#estimatedTime').val();
+      let availableDate = $('#availableDate').val();
+      let availableTime = $('#availableTime').val();
+      let payment = $('#payment').val();
+      let loca = $('#location').val();
+      console.log(title+" "+description+" "+estimatedTime+" "+availableDate+" "+availableTime+" "+payment+" "+loca);
+
+      let newPost = [
+                allPosts.length,//post id
+                userInfo[0][0],//user id
+                title,//title
+                description,//description
+                payment,//payment
+                loca,//location
+                estimatedTime,//hours
+                availableTime,//avaialble time
+                availableDate,//AVIALABLE DATE
+      ];
+      system.createPost(newPost);
+      console.log("post created");
+      console.log(system);
+      localStorage.setItem('SystemObjectData',JSON.stringify(system));
+      localStorage.setItem('User',JSON.stringify(system.getUser()));
+    });
+
+    var profilePage = document.getElementById("profilePage");
+    profilePage.href = "./profile.html?userId=" + userInfo[0][0].toString();
+    document.getElementById("userProfileIcon").href = "./profile.html?userId=" + userInfo[0][0].toString();
+  </script>
+</body>
+
+</html>
